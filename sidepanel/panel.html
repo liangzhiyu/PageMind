@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PageMind</title>
+  <link rel="stylesheet" href="panel.css">
+</head>
+<body>
+
+  <!-- Header -->
+  <header class="panel-header">
+    <div class="header-left">
+      <div id="header-page-info" class="header-page-info hidden">
+        <img id="header-favicon" class="header-favicon" src="" alt="" width="14" height="14">
+        <span id="header-domain" class="header-domain"></span>
+      </div>
+    </div>
+    <div class="header-right">
+      <button id="btn-new-chat" class="btn-icon" data-i18n-title="newChat" title="New conversation">
+        <svg width="15" height="15" viewBox="0 0 15 15" fill="none">
+          <path d="M7.5 2.5v10M2.5 7.5h10" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
+        </svg>
+      </button>
+      <button id="btn-settings" class="btn-icon" data-i18n-title="settingsBtn" title="Settings">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="12" cy="12" r="3"/>
+          <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/>
+        </svg>
+      </button>
+    </div>
+  </header>
+
+  <!-- Tab changed notice -->
+  <div id="tab-notice" class="tab-notice hidden">
+    <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
+      <circle cx="7" cy="7" r="6" stroke="currentColor" stroke-width="1.3"/>
+      <path d="M7 4v3.5M7 9.5v.5" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/>
+    </svg>
+    <span data-i18n="tabNotice">Page changed — click Summarize to reload context</span>
+    <button id="btn-dismiss-notice" class="notice-dismiss">✕</button>
+  </div>
+
+  <!-- Chat messages -->
+  <main class="chat-container" id="chat-messages">
+    <div class="empty-state" id="empty-state">
+      <div class="empty-icon">
+        <svg width="48" height="48" viewBox="0 0 48 48" fill="none">
+          <circle cx="24" cy="24" r="22" fill="url(#eg)"/>
+          <path d="M14 24.5l5.5 5.5L34 18" stroke="white" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+          <defs>
+            <linearGradient id="eg" x1="0" y1="0" x2="48" y2="48" gradientUnits="userSpaceOnUse">
+              <stop stop-color="#007AFF" stop-opacity="0.15"/>
+              <stop offset="1" stop-color="#5856D6" stop-opacity="0.15"/>
+            </linearGradient>
+          </defs>
+        </svg>
+      </div>
+      <p class="empty-title">PageMind</p>
+      <p class="empty-subtitle" data-i18n="emptySubtitle">Summarize any page or ask questions about its content. Supports custom AI models.</p>
+      <div class="empty-actions">
+        <button class="btn-pill btn-pill-large" id="btn-summarize-empty" data-i18n="summarizePage">Summarize this page</button>
+        <p class="empty-hint" data-i18n="emptyHint">Type <kbd>/</kbd> for commands</p>
+      </div>
+    </div>
+  </main>
+
+  <!-- Scroll to bottom FAB -->
+  <button id="btn-scroll-bottom" class="btn-scroll-bottom hidden" title="Scroll to bottom">
+    <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
+      <path d="M7 3v8M3.5 7.5L7 11l3.5-3.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+    </svg>
+  </button>
+
+  <!-- Input area -->
+  <footer class="input-area">
+    <!-- Slash command picker (floats above input) -->
+    <div id="cmd-picker" class="cmd-picker hidden">
+      <div class="cmd-picker-header" data-i18n="commands">Commands</div>
+      <div id="cmd-list" class="cmd-list"></div>
+    </div>
+
+    <div class="input-wrapper" id="input-wrapper">
+      <button class="btn-slash" id="btn-slash" title="Commands (/)">
+        <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
+          <path d="M9 2L5 12" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+        </svg>
+      </button>
+      <textarea
+        id="user-input"
+        data-i18n-placeholder="inputPlaceholder"
+        placeholder="Ask about this page… or type / for commands"
+        rows="1"
+        autocomplete="off"
+        spellcheck="true"
+      ></textarea>
+      <button id="btn-send" class="btn-send" disabled title="Send (Enter)">
+        <svg width="13" height="13" viewBox="0 0 13 13" fill="none">
+          <path d="M6.5 11V3M3 6.5l3.5-3.5 3.5 3.5" stroke="white" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </button>
+    </div>
+    <p class="input-hint" data-i18n="inputHint">Enter to send · Shift+Enter for new line · / for commands</p>
+  </footer>
+
+  <script src="../shared/i18n.js"></script>
+  <script src="panel.js"></script>
+</body>
+</html>
