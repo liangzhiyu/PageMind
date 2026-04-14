@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PageMind – Settings</title>
+  <link rel="stylesheet" href="settings.css">
+</head>
+<body>
+
+  <div class="page">
+    <header class="page-header">
+      <div class="header-inner">
+        <div class="logo">
+          <div class="logo-icon">
+            <svg width="22" height="22" viewBox="0 0 22 22" fill="none">
+              <circle cx="11" cy="11" r="10" fill="url(#sg)"/>
+              <path d="M6.5 11.5l3 3 6-7" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+              <defs>
+                <linearGradient id="sg" x1="0" y1="0" x2="22" y2="22" gradientUnits="userSpaceOnUse">
+                  <stop stop-color="#007AFF"/>
+                  <stop offset="1" stop-color="#5856D6"/>
+                </linearGradient>
+              </defs>
+            </svg>
+          </div>
+          <div>
+            <h1 class="logo-title">PageMind</h1>
+            <p class="logo-sub" data-i18n="settingsTitle">Settings</p>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <main class="main-content">
+
+      <!-- Language -->
+      <section class="card">
+        <div class="card-header">
+          <span class="card-icon">🌐</span>
+          <div>
+            <h2 class="card-title" data-i18n="language">Language</h2>
+          </div>
+        </div>
+        <div class="lang-grid">
+          <button class="btn-lang" data-lang="en">🇺🇸 English</button>
+          <button class="btn-lang" data-lang="zh">🇨🇳 中文</button>
+          <button class="btn-lang" data-lang="ja">🇯🇵 日本語</button>
+          <button class="btn-lang" data-lang="ko">🇰🇷 한국어</button>
+          <button class="btn-lang" data-lang="de">🇩🇪 Deutsch</button>
+          <button class="btn-lang" data-lang="fr">🇫🇷 Français</button>
+        </div>
+      </section>
+
+      <!-- Model Configuration -->
+      <section class="card">
+        <div class="card-header">
+          <span class="card-icon">🤖</span>
+          <div>
+            <h2 class="card-title" data-i18n="aiModel">AI Model</h2>
+            <p class="card-desc" data-i18n="aiModelDesc">Configure your AI provider. Supports any OpenAI-compatible API.</p>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="label" for="base-url" data-i18n="apiBaseUrl">API Base URL</label>
+          <input
+            type="url"
+            id="base-url"
+            class="input"
+            placeholder="https://api.openai.com/v1"
+            spellcheck="false"
+            autocomplete="off"
+          >
+          <p class="field-hint">
+            OpenAI: <code>https://api.openai.com/v1</code><br>
+            Ollama: <code>http://localhost:11434/v1</code><br>
+            LM Studio: <code>http://localhost:1234/v1</code>
+          </p>
+        </div>
+
+        <div class="form-group">
+          <label class="label" for="api-key" data-i18n="apiKey">API Key</label>
+          <div class="input-with-action">
+            <input
+              type="password"
+              id="api-key"
+              class="input"
+              placeholder="sk-…"
+              autocomplete="off"
+              spellcheck="false"
+            >
+            <button class="btn-toggle-key" id="btn-toggle-key" title="Show/hide key" type="button">
+              <svg id="icon-eye-off" width="16" height="16" viewBox="0 0 16 16" fill="none">
+                <path d="M2 2l12 12M6.7 6.7A2 2 0 0 0 9.3 9.3M4.3 4.3C3.1 5.1 2 6.4 1 8c1.7 2.7 4.1 4.5 7 4.5a7 7 0 0 0 3.7-1.1M6.5 3.6A7 7 0 0 1 8 3.5c2.9 0 5.3 1.8 7 4.5-1 1.6-2.1 2.9-3.3 3.7" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/>
+              </svg>
+              <svg id="icon-eye-on" width="16" height="16" viewBox="0 0 16 16" fill="none" class="hidden">
+                <path d="M1 8c1.7-2.7 4.1-4.5 7-4.5S13.3 5.3 15 8c-1.7 2.7-4.1 4.5-7 4.5S2.7 10.7 1 8Z" stroke="currentColor" stroke-width="1.4"/>
+                <circle cx="8" cy="8" r="2" stroke="currentColor" stroke-width="1.4"/>
+              </svg>
+            </button>
+          </div>
+          <p class="field-hint" data-i18n="apiKeyHint">Stored locally in Chrome. Not transmitted except to your configured API.</p>
+        </div>
+
+        <div class="form-group">
+          <label class="label" for="model-name" data-i18n="modelName">Model Name</label>
+          <input
+            type="text"
+            id="model-name"
+            class="input"
+            placeholder="gpt-4o-mini"
+            spellcheck="false"
+            autocomplete="off"
+          >
+          <div class="model-presets">
+            <span class="preset-label" data-i18n="quickSelect">Quick select:</span>
+            <button class="btn-preset" data-model="MiniMax-M2.7">MiniMax-M2.7</button>
+            <button class="btn-preset" data-model="MiniMax-M2.7-highspeed">M2.7-highspeed</button>
+            <button class="btn-preset" data-model="gpt-4o-mini">gpt-4o-mini</button>
+            <button class="btn-preset" data-model="llama3">llama3</button>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <div class="row-between">
+            <label class="label" style="margin:0" data-i18n="connection">Connection</label>
+            <button id="btn-test" class="btn-secondary" type="button" data-i18n="testConnection">Test Connection</button>
+          </div>
+          <div id="connection-status" class="status-box hidden"></div>
+        </div>
+      </section>
+
+      <!-- System Prompt -->
+      <section class="card">
+        <div class="card-header">
+          <span class="card-icon">💬</span>
+          <div>
+            <h2 class="card-title" data-i18n="systemPrompt">System Prompt</h2>
+            <p class="card-desc" data-i18n="systemPromptDesc">Customize the assistant's behavior and persona.</p>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <textarea
+            id="system-prompt"
+            class="input textarea"
+            rows="5"
+            placeholder="You are a helpful assistant..."
+            spellcheck="true"
+          ></textarea>
+          <p class="field-hint" data-i18n="systemPromptHint">The page content will be appended automatically when you summarize a page.</p>
+        </div>
+
+        <div class="form-group">
+          <label class="label" for="summarize-prompt" data-i18n="summarizePrompt">Summarize Prompt</label>
+          <textarea
+            id="summarize-prompt"
+            class="input textarea"
+            rows="3"
+            placeholder="Please summarize this page concisely..."
+            spellcheck="true"
+          ></textarea>
+          <p class="field-hint" data-i18n="summarizePromptHint">The user message sent when you click "Summarize this page". Your System Prompt above also applies.</p>
+        </div>
+      </section>
+
+      <!-- Slash Commands -->
+      <section class="card">
+        <div class="card-header">
+          <span class="card-icon">⚡</span>
+          <div>
+            <h2 class="card-title" data-i18n="slashCommands">Slash Commands</h2>
+            <p class="card-desc" data-i18n="slashCommandsDesc">Type / in the chat to trigger commands. Built-in commands can be edited.</p>
+          </div>
+        </div>
+
+        <div id="all-commands-list" class="custom-cmd-list"></div>
+
+        <button id="btn-add-cmd" class="btn-add-cmd" type="button">
+          <svg width="13" height="13" viewBox="0 0 13 13" fill="none">
+            <path d="M6.5 2v9M2 6.5h9" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+          </svg>
+          <span data-i18n="addCommand">Add Command</span>
+        </button>
+      </section>
+
+      <!-- About -->
+      <section class="card card-subtle">
+        <div class="about-row">
+          <span class="about-label">PageMind</span>
+          <span class="about-value">v1.0.0</span>
+        </div>
+        <div class="about-row">
+          <span class="about-label">Manifest</span>
+          <span class="about-value">v3</span>
+        </div>
+        <div class="about-row">
+          <span class="about-label">API Protocol</span>
+          <span class="about-value">OpenAI-compatible</span>
+        </div>
+      </section>
+
+    </main>
+
+    <footer class="page-footer">
+      <button id="btn-reset" class="btn-ghost" type="button" data-i18n="resetDefaults">Reset to Defaults</button>
+      <button id="btn-save" class="btn-primary" type="button" data-i18n="saveSettings">Save Settings</button>
+    </footer>
+  </div>
+
+  <!-- Toast notification -->
+  <div id="toast" class="toast hidden"></div>
+
+  <script src="../shared/i18n.js"></script>
+  <script src="settings.js"></script>
+</body>
+</html>
